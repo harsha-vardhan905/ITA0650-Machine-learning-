@@ -1,0 +1,31 @@
+import numpy as np
+
+# Example Dataset
+# Features: [Sky, Temperature, Humidity, Wind, Water, Forecast]
+data = np.array([
+    ["Sunny", "Warm", "Normal", "Strong", "Warm", "Same"],
+    ["Sunny", "Warm", "High", "Strong", "Warm", "Same"],
+    ["Rainy", "Cold", "High", "Strong", "Warm", "Change"],
+    ["Sunny", "Warm", "High", "Strong", "Cool", "Change"],
+])
+
+# Target labels: "Yes" = positive, "No" = negative
+target = ["Yes", "Yes", "No", "Yes"]
+
+# Step 1: Initialize the hypothesis with the first positive example
+hypothesis = None
+for i in range(len(data)):
+    if target[i] == "Yes":  # Look for the first positive example
+        hypothesis = list(data[i])
+        break
+
+# Step 2: Update the hypothesis for each subsequent positive example
+for i in range(len(data)):
+    if target[i] == "Yes":
+        for j in range(len(hypothesis)):
+            if hypothesis[j] != data[i][j]:
+                hypothesis[j] = "?"  # Replace conflicting attributes with '?'
+
+# Output the most specific hypothesis
+print("Most Specific Hypothesis:", hypothesis)
+ 
